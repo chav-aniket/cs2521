@@ -1,0 +1,22 @@
+Input	Initial	Has	    Number	AvgTime	AvgTime
+Size	Order	Dups	of runs	foruser	forsort
+1000	random	no  	10	    0m0.16s 0m0.00s
+2000	random	no  	10	    0m0.12s 0m0.00s
+3000	random	no	    10	    0m0.08s 0m0.00s
+4000	random	no	    10	    0m0.12s 0m0.00s
+5000	random	no	    10	    0m0.12s 0m0.00s
+6000	random	no	    10      0m0.08s 0m0.00s
+7000	random	no	    10	    0m0.08s 0m0.00s
+8000	random	no	    10	    0m0.12s 0m0.00s
+9000	random	no	    10	    0m0.00s 0m0.00s
+10000	random	no	    10	    0m0.04s 0m0.00s
+
+The terminal sort function is magic. I don't know if it was working properly
+or not but ut seems to consistently spend less than 0m0.00s on sorting. 
+I did not have time to test multiple different cases for initial orders but i
+tried to make up for it by creating a batch file which creates a set of 10 test 
+files from 1000-10000 alongside the batch file to run the tests.
+The sorting function we built is evidently much less inefficient than the inbuilt
+as it does not sort only what needs to be sorted, it just sorts everything.
+Quicksort as a sorting algorithm is better because it divides the input and only
+sorts what needs to be sorted. 

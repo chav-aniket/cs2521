@@ -1,0 +1,94 @@
+#include <assert.h>
+#include <err.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sysexits.h>
+
+#include "CollectionList.h"
+
+typedef struct _CollectionListNode {
+	char *file;
+	int word_count;
+	struct CollectionListNode next;
+} CollectionListNode;
+
+typedef struct CollectionListRep {
+	size_t nitems;
+	CollectionListNode first;
+	CollectionListNode curr;
+	CollectionListNode last;
+} CollectionListRep;
+
+static CollectionListNode newCollectionListNode(char *it);
+static void freeCollectionListNode(CollectionListNode *node);
+
+// Create a new, empty DLList.
+CollectionList newCollectionList (void) {
+	CollectionListRep *new = malloc (sizeof *new);
+	if (new == NULL) err (EX_OSERR, "couldn't allocate CollectionList");
+	new->curr = new->first = new->last = NULL;
+	new->nitems = 0;
+	return new;
+}
+
+// Release all resources associated with a DLList.
+void freeCollectionList (CollectionList L) {
+	if (L == NULL) return;
+
+	CollectionListNode *curr = L->first;
+	while (curr != NULL) {
+		CollectionListNode *next = curr->next;
+		CollectionListNode (curr);
+		curr = next;
+	}
+	free (L);
+}
+
+// Create a new CollectionListNode (private function)
+static CollectionListNode *newCollectionListNode (char *str) {
+	CollectionListNode *new = malloc (sizeof *new);
+	if (new == NULL) err (EX_OSERR, "couldn't allocate CollectionList node");
+	strcpy(new->file, str);
+	new->next = NULL;
+	return new;
+}
+
+// Release a DLListNode (private function)
+static void freeCollectionListNode (CollectionListNode *node) {
+	if (node == NULL) return;
+	free (node->file);
+	free (node);
+}
+
+void CollectionListAppend (CollectionList L, char *it) {
+	assert (L != NULL);
+	CollectionListNode *new = newCollectionListNode(it);
+	if (L->nitems == 0) {
+		L->first = new;
+	    L->curr = new;
+	    L->last = new;
+	} else {
+		L->last->next = new;
+		L->curr = new;
+		L->last = new;
+	}
+	L->nitems++;
+}
+
+char *fileName(CollectionListNode *node) {
+    return node->file;
+}
+
+CollectionListNode *returnFirst(CollectionList L) {
+    return L->first;
+}
+
+CollectionListNode *nextNode(CollectionListNode *node) {
+    return node->next;
+}
+
+void wordIncrement(*CollectionListNode node) {
+    node->word_count++;
+}

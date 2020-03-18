@@ -1,0 +1,35 @@
+Results for Tests on 5000 values
+
+Depth = depth of tree, Cost = average #comparisons per search
+
+
+             Ascending Order        Prefix Order        Random Order
+Insert
+Method       Depth      Cost     Depth      Cost     Depth      Cost
+
+L             5000  3114.466        13    11.750        28    15.951
+
+A             5000  1886.534      2954  1114.668        28    16.285
+
+R             2492   951.502      1774   673.836        27    15.155
+
+B              206    62.523        20    13.644        23    13.025
+
+S               33    23.596        29    23.608      1149    22.725
+
+V               13    11.776        14    12.099        15    11.786
+
+
+Notes (what the above indicates):
+    The results show that the AVL is the best insert method while a random
+    input order greatly improves the search cost of even the worst insert method
+    (Leaf-insert).
+    
+    L A : Leaf-insert only follows the basic rules of a BST and so creates a
+            stupid 5000-level BST which is extremely inefficient to search through.
+    L P : Prefix actually creates a broad BST which results in the best search
+            efficiency out of everything.
+    L R : Random cannot be greatly explained but offers decent amounts of variation
+            which results in a reasonably broad BST and thus decent search-cost.
+    A A : Root-insert also follows the basic rules and so also creates a 5000
+            level BST which has terrible 

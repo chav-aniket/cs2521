@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "BSTree.h"
+
+InvertedIndexBST newInvertedIndexBST(char *str) {
+	InvertedIndexBST new = malloc(sizeof new);
+	new->left = new->right = NULL;
+	new->word = malloc(sizeof(char) *101);
+	strcpy(new->word, str);
+	return new;
+}
+
+InvertedIndexBST BSTreeInsert(InvertedIndexBST t, char *str) {
+	if (t == NULL)
+		return newInvertedIndexBST(str);
+	if (strcmp(t->word, str) < 0) {
+		t->left = BSTreeInsert(t->left, str);
+	} else if (strcmp(t->word, str) > 0) {
+		t->right = BSTreeInsert(t->right, str);
+	} else if (strcmp(t->word, str) == 0) {
+		return t;
+	}
+	return t;
+}
+
+InvertedIndexBST FindBSTree(InvertedIndexBST t, char *str) {
+	if (t == NULL)
+		return NULL;
+
+	if (strcmp(t->word, str) < 0) {
+		return FindBSTree(t->left, str);
+	} else if (strcmp(t->word, str) > 0) {
+		return FindBSTree(t->right, str);
+	} else if (strcmp(t->word, str) == 0) {
+		return t;
+	}
+	return NULL;
+}

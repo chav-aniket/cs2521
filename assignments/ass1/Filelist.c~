@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "invertedIndex.h"
+
+FileList newFilelistNode(char *filename) {
+	FileList new = malloc(sizeof(struct FileList));
+	new->filename = malloc(sizeof(char) * 101);
+	new->tf = malloc(sizeof(int));
+	new->filename = filename;
+	new->tf = 1;
+	new->next = NULL;
+	return new;
+}
+
+void FilelistAppend(Filelist L, char *filename) {
+	FileList curr = L;
+	while (curr != NULL) {
+		if (strcmp(curr->filename, filename) == 0)
+			curr->tf++;
+	}
+	Filelist new = newFilelistNode(filename);
+	if (L == NULL) {
+		L = new;
+	} else {
+		FileListNode curr = L;
+		while (curr->next != NULL) {
+			curr = curr->next;
+		}
+		curr->next = new;
+	}
+}

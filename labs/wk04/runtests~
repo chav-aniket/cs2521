@@ -1,0 +1,25 @@
+#!/bin/sh
+
+size=200
+echo "=== 200 Size Tests ==="
+for insert in L A B R S V
+do
+	for order in A P R
+	do
+		echo ""
+		echo "Test: ./tlab $size $order $insert"
+		echo "t" | ./tlab $size $order $insert | grep -v Tree
+	done
+done
+
+size=5000
+echo "=== 5000 Size Tests ==="
+for insert in L A B R S V
+do
+	for order in A P R
+	do
+		echo ""
+		echo "Test: ./tlab $size $order $insert"
+		echo "t" | ./tlab $size $order $insert | grep -v Tree
+	done
+done

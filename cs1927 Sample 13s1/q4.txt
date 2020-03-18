@@ -1,0 +1,4 @@
+A. 15 times
+B. (n^2-1)/2
+C. O(n^2)
+D. min = (a[j] - a[min] < 0)?j:min;

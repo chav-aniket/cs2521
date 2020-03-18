@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for t in 01 02 03 04 05 06 07 08 09 10
+do
+    numValues=`echo "$t*1000" | bc`
+	./randList "$numValues" > /tmp/$t
+	echo === Test $t created ===
+done

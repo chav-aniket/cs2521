@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "invertedIndex.h"
+#include "CollectionList.h"
+#include "BSTree.h"
+#include "Filelist.h"
+
+char *normaliseWord(char *str) {
+	for (int i = 0; i < strlen(str) - 1; i++) {
+		str[i] = tolower(str[i]);
+	}
+	if (isspace(str[0])) {
+		memmove(&str[0], &str[1], strlen(str)-1);
+	}
+	if (isspace(str[strlen(str)-1])) {
+		str[strlen(str)-1] = '\0';
+	}
+	if (str[strlen(str)-1] == '.' || str[strlen(str)-1] == ',' ||
+		str[strlen(str)-1] == '?' || str[strlen(str)-1] == ';') {
+		str[strlen(str)-1] = '\0';
+	}
+	return str;
+}
+
+InvertedIndexBST generateInvertedIndex(char *collectionFilename) {
+	FILE *f;
+	char fileName[101];
+	char word[101];
+
+	CollectionList collectionL = newCollectionList();
+	f = fopen(collectionFilename, "r");
+
+	while (fscanf(f, "%s", &fileName) == 1) {
+		CollectionListAppend(collectionL, fileName);
+	}
+	fclose(f);
+
+	InvertedIndexBST t = NULL;
+	InvertedIndexBST currBST = NULL;
+
+	CListNode curr = returnFirst(collectionL);
+	while (curr != NULL) {
+		f = fopen(curr->file, "r");
+		while (fscanf(f, "%s", word) == 1) {
+			strcpy(word, normaliseWord(word));
+			t = BSTreeInsert(t, word);
+			currBST = FindBSTree(t, word);
+			FilelistAppend(currBST->fileList, f);
+			wordIncrement(curr);
+		}
+		fclose(f);
+		curr = nextNode(curr);
+	}
+	return t;
+}
+
+void printInvertedIndex(InvertedIndexBST tree) {
+
+}

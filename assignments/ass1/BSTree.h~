@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "invertedIndex.h"
+
+InvertedIndexBST newInvertedIndexBST();
+
+InvertedIndexBST newInvertedIndexNode(char *str);
+
+InvertedIndexBST BSTreeInsert(InvertedIndexBST t, char *str);
+
+InvertedIndexBST FindBSTree(InvertedIndexBST t, char *str);
